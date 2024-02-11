@@ -1,0 +1,17 @@
+#!/bin/sh
+
+#Sets up git lazypush (add, commit and push to remote repo)
+#git lp "<COMMIT_MESSAGE>"
+
+commitMessage=$1 #First arguement is the commit message
+currentBranch=$(git symbolic-ref --short -q HEAD) #gets the current branch
+
+if [ ! -z "$commitMessage" ]
+then
+    git add .
+    git commit -m "$commitMessage"
+    git push origin $currentBranch
+else
+    echo -e "\e[1;31m ERROR: Provide a commit message! \e[0m git lp \"<COMMIT_MESSAGE>\""
+    exit 1
+fi
