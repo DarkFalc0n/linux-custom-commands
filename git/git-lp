@@ -1,16 +1,17 @@
 #!/bin/sh
 
-#Sets up git lazypush (add, commit and push to remote repo)
+#Sets up git lazypush (add all files, commit and push to most recent remote repo)
 #git lp "<COMMIT_MESSAGE>"
 
 commitMessage=$1 #First arguement is the commit message
 currentBranch=$(git symbolic-ref --short -q HEAD) #gets the current branch
+remoteName=$(git remote | sed 1q) #gets the most recent remote name
 
 if [ ! -z "$commitMessage" ]
 then
     git add .
     git commit -m "$commitMessage"
-    git push origin $currentBranch
+    git push $remoteName $currentBranch
 else
     echo -e "\e[1;31m ERROR: Provide a commit message! \e[0m git lp \"<COMMIT_MESSAGE>\""
     exit 1
