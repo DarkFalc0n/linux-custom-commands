@@ -1,0 +1,15 @@
+#!/bin/sh
+
+#Sets up git commit (add all files and commit)
+#git lc "<COMMIT_MESSAGE>"
+
+commitMessage=$1 #First arguement is the commit message
+
+if [ ! -z "$commitMessage" ]
+then
+    git add .
+    git commit -m "$commitMessage"
+else
+    echo -e "\e[1;31m ERROR: Provide a commit message! \e[0m git lc \"<COMMIT_MESSAGE>\""
+    exit 1
+fi
